@@ -1,0 +1,114 @@
+
+FONCTION new_member(): PARTICIPANT
+VAR:
+	memb: PARTICIPANT
+
+DEBUT
+	ECRIRE("Entrez votre nom svp")
+	LIRE(memb.last_name)
+	ECRIRE("Entrez votre prenom svp")
+	LIRE(memb.first_name)
+	ECRIRE("Entrez votre nom svp")
+	LIRE(memb.years_of_membership)
+	ECRIRE("Entrez votre sexe svp")
+	LIRE(memb.gender)
+	ECRIRE("Entrez votre age svp")
+	LIRE(memb.age)
+	ECRIRE("Entrez votre identifiant svp")
+	LIRE(memb.id)
+	RETOURNER memb
+FINFONCTION
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+FONCTION new_participation(): PARTICIPANTION
+VAR:
+	parti: PARTICIPANTION
+DEBUT
+	ECRIRE("Entrez le montant paye de votre cotisation svp")
+	LIRE(parti.amount_paid)
+	ECRIRE("Entrez le montant exact de la cotisation svp")
+	LIRE(parti.amount_due)
+	ECRIRE("Entrez le type d'evenement svp")
+	LIRE(parti.event_type)
+	RETOURNER parti
+FIN
+*****************************************************************
+FONCTION verification_membre_a jour(cotisation:PARTICIPATION): booleen
+CONST:
+	evenement_1 <-- 2000 * 4 
+	evenement_2 <-- 3000 * 2 
+	evenement_3 <-- 1500 * 2 
+VAR:
+	reponse:booleen
+DEBUT
+	cotisation.amount_due <-- (evenement_1 + evenement_2 + evenement_3)
+	     Si (cotisation.amount_paid =  cotisation.amount_due) Alors
+		reponse <-- VRAI
+	     SiNon
+		reponse <-- FAUX
+	RETOURNER reponse
+FINFONCTION
+***************************************************************************
+PROCEDURE afficher_membre_a jour(reponse : booleen,membe :PARTICIPANT )
+DEBUT
+	si (reponse = VRAI) Alors 
+		ECRIRE(" ce membre est a jour")
+		ECRIRE(" le montant payer est :",membe.amount_paid)
+		ECRIRE(" le montant exact a payer est :",membe.amount_due)
+		ECRIRE(" le type d'evenement est :",membe.event_type)
+FIN
+***********************************************************************************
+PROCEDURE afficher_membre_non_a jour(membership_fee:PARTICIPATION,membe :PARTICIPANT )
+CONST : years <-- 2024
+DEBUT
+	Si (membe.years_of_membership <> years) ET (membership_fee.amount_paid <> membership_fee.amount_due) Alors
+		ECRIRE("vous etes ancien et non a jour")
+	SiNon   
+		ECRIRE("vous etes a jour")
+FINPROCEDURE
+
+**************************************************************************************
+Algorithme 	ma_mutuelle
+ENREGISTREMENT: PARTICIPANT
+	last_name   : stringe
+	first_name : string
+	years_of_membership : integer
+	gender : string
+	age   : integer
+	id     : integer
+	cotisation: [0..8]de PARTICIPATION
+FINENREGISTREMENT
+
+ENREGISTREMENT: PARTICIPATION
+	amount_paid   : integer
+	amount_due : integer
+	event_type : string
+FINENREGISTREMENT
+	FONCTION new_member(): PARTICIPANT
+	FONCTION new_participation(): PARTICIPANTION
+	FONCTION verification_membre_a jour(cotisation:PARTICIPATION): booleen
+	PROCEDURE afficher_membre_a jour(reponse : booleen,membe :PARTICIPANT )
+VAR:
+	member: [0..14] de  PARTICIPANT
+	partip : [0..7] de  PARTICIPANTION
+	i:entier 
+	reponse : booleen
+
+DEBUT
+	POUR i <-- 0 a 14 FAIRE
+		member[i] <-- new_member()  
+		POUR i <-- 0 a 7
+			partip[i] <-- new_participation()
+		FINPOUR
+			reponse <-- verification_membre_a jour(partip[i])
+			afficher_membre_a jour(reponse,member[i])
+			Si( member.genger = femme) ET (particip.amount_due = particip.amount_paid) Alors
+				ECRIER("membre femme et a jour ")
+				ECRIRE("votre nom  est:",member.last_name )
+				ECRIRE(" votre prenom est:",member.first_name )
+				ECRIRE(" votre nom est:", member. years_of_membership)
+				ECRIRE(" votre sexe est:", member.gender)
+				ECRIRE(" votre age est:",member.age )
+				ECRIRE(" votre identifiant est:",member.id ) 
+			afficher_membre_non_a jour(particip[i],member[i]  ) 
+	FINPOUR 
+FIN
