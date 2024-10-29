@@ -1,0 +1,65 @@
+		CHALENGE DE JEUDI
+
+	tache 1	_ reproduit un portfolio de mon choix
+	tache 2	_lui appliquer des proprietes suivantes:
+		. animation,transform,baground-image,position,before,after
+		.les selecteurs css
+		.media query
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+	tache 3 _ boucler mon chapitre d'algo
+
+			sujet
+
+Ecrire un algo qui permet d'enregistrer les participations de 15 membres d'une association dont un membre doit payer 8 evenement 
+ les evenements sont repartis comme suite
+	les 4 1er :2000f                
+	les 2 second: 3000
+	les 2 derniers:1500
+pour cela il faut:
+	1 membre se definir par: 
+		nom,prenom,annee d'adhesion,genre,l'age,identifiant
+	PARTICIPATION est defini par 
+		montant payer,montant due ou reel,type-evenement
+_menu renseigner tout les membre
+_ menu afficher les membres a jours
+_ voire toute les jeunes femme a jour 
+_voir les anciens membres non a jour
+_somme total de la cotisation par rapport au  montant total
+	_menu de verification d'atteinte de la cayotte																														- 
+_ menu rechercher un membre a patir de son identifiant
+	verifier l'existence du membre et afficher info perso et participation
+************************************************************************************************************************************
+			SOLUTION
+	1_Enregistrer les 15 membre de l'association( les enregistrements)
+	2_Enregistrer les participations de tout les membres individuelement
+	3_afficher les membres a jour
+	8_femme a jour
+	4_afficher la somme cotiser par rapport au montant total 
+	5_ verifier si la cayotte est atteint
+	6_afficher un membre a partir de son identifiant
+	7_verifier l'existence de ce membre et afficher ces infos perso
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+1__ Faire un menu :
+	. enregistrer tout les membres.
+    . afficher les membres a jours.
+    . voire toute les jeunes femme a jour .
+    .voir les anciens membres non a jour.
+    .voir la somme total de la cotisation par rapport au  montant total.
+	. verification d'atteinte de la cayotte	.																													- 
+    . rechercher un membre a patir de son identifiant.
+	.verifier l'existence du membre.  
+	. afficher info perso et participation.
+2__MENU ENREGISTRER TOUT LES MEMBRES
+	_Creer les entitees:
+		membres et participations
+	_creation d'une fonction d'enregistrement de membres et participation
+	_ receuillir les enregistrements dans un tableau
+	_ ramener l'utilisateur au menu principal
+3__ AFFICHER TOUT LES MEMBRES A JOUR 
+	_parcourir la liste des membres
+	_verifier les participations de chaque membre
+	_affichage des informations du membre a jour
+	_ revenir au menu principal
+	_quitter l'application

@@ -69,37 +69,37 @@ FINPROCEDURE
 **************************************************************************************
 Algorithme 	ma_mutuelle
 ENREGISTREMENT: PARTICIPANT
-	last_name   : stringe
-	first_name : string
-	years_of_membership : integer
-	gender : string
-	age   : integer
-	id     : integer
-	cotisation: [0..8]de PARTICIPATION
+	last_name   : chaine de caractere
+	first_name : chaine de caracter
+	years_of_membership : entier
+	gender : chaine de caractere
+	age   : entier
+	id     : entier
+	cotisation: [0..7]de PARTICIPATION
 FINENREGISTREMENT
 
 ENREGISTREMENT: PARTICIPATION
-	amount_paid   : integer
-	amount_due : integer
-	event_type : string
+	amount_paid   : entier
+	amount_due : entier
+	event_type : chaine de caracter
 FINENREGISTREMENT
 	FONCTION new_member(): PARTICIPANT
 	FONCTION new_participation(): PARTICIPANTION
-	FONCTION verification_membre_a jour(cotisation:PARTICIPATION): booleen
-	PROCEDURE afficher_membre_a jour(reponse : booleen,membe :PARTICIPANT )
+	FONCTION verification_membre_ajour(cotisation:PARTICIPATION): booleen
+	PROCEDURE afficher_membre_ajour(reponse : booleen,membe :PARTICIPANT )
 VAR:
 	member: [0..14] de  PARTICIPANT
 	partip : [0..7] de  PARTICIPANTION
-	i:entier 
+	i, u:entier 
 	reponse : booleen
 
 DEBUT
 	POUR i <-- 0 a 14 FAIRE
 		member[i] <-- new_member()  
-		POUR i <-- 0 a 7
-			partip[i] <-- new_participation()
+		POUR u <-- 0 a 7
+			member[i].cotisation[u] <-- new_participation()
 		FINPOUR
-			reponse <-- verification_membre_a jour(partip[i])
+			reponse <-- verification_membre_ajour(partip[i])
 			afficher_membre_a jour(reponse,member[i])
 			Si( member.genger = femme) ET (particip.amount_due = particip.amount_paid) Alors
 				ECRIER("membre femme et a jour ")

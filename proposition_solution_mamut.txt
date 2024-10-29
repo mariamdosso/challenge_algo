@@ -1,0 +1,191 @@
+FONCTION menus(): entier
+Var:
+    choice:entier
+DEBUT
+        ECRIRE("Bienvenue sur notre mutuelle taper:" )
+        ECRIRE("1_  enregistrer tout les membres" )
+        ECRIRE("2_  afficher les membres a jours" )
+        ECRIRE("3_ voire toute les jeunes femme a jour " )
+        ECRIRE("4_ voir les anciens membres non a jour " )
+        ECRIRE("5_ voir la somme total de la cotisation " )
+        ECRIRE("6_ voir la cayotte " )
+        ECRIRE("7_  rechercher un membre a patir de son identifiant " )
+        LIRE (choice)
+        RETOURNER choice
+FINFONCTION
+------------------------------------------------------------------------------------------------
+FONCTION new_member(): MEMBER
+    FONCTION new_participation(): PARTICIPANTION
+VAR:
+	memb: MEMBER
+    u: entier
+
+DEBUT
+	ECRIRE("Entrez votre nom svp")
+	LIRE(memb.last_name)
+	ECRIRE("Entrez votre prenom svp")
+	LIRE(memb.first_name)
+	ECRIRE("Entrez votre nom svp")
+	LIRE(memb.years_of_membership)
+	ECRIRE("Entrez votre sexe svp")
+	LIRE(memb.gender)
+	ECRIRE("Entrez votre age svp")
+	LIRE(memb.age)
+	ECRIRE("Entrez votre identifiant svp")
+	LIRE(memb.id)
+    POUR u <-- 0 a 7
+			memb.cotisation[u] <-- new_participation()
+            Si (u <= 3) Alors
+              memb.cotisation[u].amount_due <-- 2000
+            FinSi
+            Si (u > 3 u <= 5) Alors
+              memb.cotisation[u].amount_due <-- 3000
+              Sinon
+                 memb.cotisation[u].amount_due <-- 1500
+            FinSi
+		FINPOUR
+	RETOURNER memb
+FINFONCTION
+-------------------------------------------------------------------------------------------
+
+FONCTION new_participation(): PARTICIPANTION
+VAR:
+	parti: PARTICIPANTION
+DEBUT
+	ECRIRE("Entrez le montant paye de votre cotisation svp")
+	LIRE(parti.amount_paid)
+	//ECRIRE("Entrez le montant exact de la cotisation svp")
+	//LIRE(parti.amount_due)
+	ECRIRE("Entrez le type d'evenement svp")
+	LIRE(parti.event_type)
+	RETOURNER parti
+FINFONCTION
+--------------------------------------------------------------------------------------------------
+FONCTION check_member_update(cotise:[0..7] de PARTICIPATION): booleen
+VAR:
+	reponse:booleen
+    i, is_not_update:entier
+DEBUT 
+        is_not_update <-- 0
+        Pour  i <-- 0 a 7 Faire 
+	        Si (cotise[i].amount_paid <  cotise[i].amount_due) Alors
+		        is_not_update <-- is_not_update + 1
+            FinSi
+        FinPour
+        Si (is_not_update > 0) Alors
+            reponse <-- FAUX
+        Sinon
+            reponse <-- VRAI 
+        FinSi
+	    RETOURNER reponse
+FINFONCTION
+----------------------------------------------------------------
+PROCEDURE display_member(memb:MEMBER)
+DEBUT
+        ECRIRE(" votre nom :",memb.last_name)
+	    ECRIRE(" votre prenom :",memb.first_name)
+	    ECRIRE(" votre nom :",memb.years_of_membership)
+	    ECRIRE(" votre sexe :",memb.gender)
+	    ECRIRE(" votre age :",memb.age)
+	    ECRIRE(" votre identifiant :",memb.id)     
+
+FINPROCEDURE
+------------------------------------------------------------------------------------------------
+FONCTION get_total_amount( list_cotise:[0..7] de PARTICIPATION): reel
+VAR:
+    amount: reel
+    i:entier
+ DEBUT
+        amount <-- 0
+        Pour i <-- 0 a 7 Faire
+           amount <-- amount + list_cotise[i].amount_paid
+        FinPour
+    RETOURNER amount
+FINFONCTION
+-----------------------------------------------------------------------------------------------------
+Algorithme ma_mutuelle
+    FONCTION menus(): entier
+    ENREGISTREMENT : MEMBER
+        last_name   : chaine de caractere
+	    first_name : chaine de caracter
+	    years_of_membership : entier
+	    gender : caractere
+	    age   : entier
+	    id     : entier
+	    cotisation: [0..7]de PARTICIPATION
+    FINENREGISTREMENT
+    ENREGISTREMENT: PARTICIPATION
+	    amount_paid   : entier
+	    amount_due : entier
+	    event_type : chaine de caracter
+    FINENREGISTREMENT
+    FONCTION new_member(): MEMBER
+    FONCTION check_member_update(cotise:[0..7] de PARTICIPATION): booleen
+    PROCEDURE display_member(memb:MEMBER)
+    FONCTION get_total_amount( list_cotise:[0..7] de reel): reel
+VAR:
+    user_choice:entier
+    list_member:[0..14] de MEMBER
+    i: entier
+    reponse: booleen
+    amount_total : reel
+     
+
+DEBUT
+    Repeter
+       user_choice <--  menus()
+       Si (user_choice = 1 ) Alors
+        Pour i <-- 0 a 14 Faire
+            list_member[i] <-- new_member()
+        FinPour
+       FinSi
+        Si  (user_choice = 2 ) Alors 
+            Pour i <-- 0 a 14 Faire
+                reponse <-- check_member_update(list_member[i].cotisation)
+                Si (reponse = VRAI ) Alors
+                    Ecrire(" voici vos informations personnel")
+                    display_member(list_member[i])
+                FinSi
+            FinPour
+        FinSi
+        Si (user_choice = 3) Alors
+            Pour i <-- 0 a 14 Faire
+                Si (((list_member[i].gender = "f") OU (list_member[i].gender = "F")) ET ((list_member[i].age >= 18) ET (list_member[i].age <= 35)))  Alors
+                    reponse <-- check_member_update(list_member[i].cotisation)
+                    Si (reponse = VRAI ) Alors
+                        Ecrire(" voici vos informations personnel")
+                        display_member(list_member[i])
+                    FinSi
+                FinSi
+            FinPour
+        FinSi
+        Si (user_choice = 4 ) Alors
+            Pour i <-- 0 a 14 Faire
+                Si (list_member[i].years_of_membership >= 3)
+                        reponse <-- check_member_update(list_member[i].cotisation)
+                    Si (reponse = FAUX ) Alors
+                        Ecrire(" voici vos informations personnel")
+                        display_member(list_member[i])
+                    FinSi
+                FinSi
+             FinPour
+        FinSi
+        Si (user_choice = 5) Alors
+            Pour i <-- 0 a 14 Faire
+                 amount_total <-- get_total_amount(list_member[i].cotisation ) * 15
+                 Ecrire(" voici le montant cotisee par rapport au montant total:",amount_total)
+            FinPour
+        FinSi
+        Si (user_choice = 6) Alors
+            Pour i <-- 0 a 14 Faire
+                amount_total <-- get_total_amount(list_member[i].cotisation ) * 15
+                Si (amount_total = list_member[i].cotisation.amount_due) Alors
+                    ECRIRE(" felicitation la cayotte  est atteint")
+                SiNon 
+                    ECRIRE(" desole la cayotte n'est pas  atteint! redoublons d'effort pour une prochaine foie")
+                FinSi
+            FinPour
+         FinSi 
+ 	   
+    Jusqu'a  (user_choice >= 1) ET  (user_choice <= 7)
+FIN
