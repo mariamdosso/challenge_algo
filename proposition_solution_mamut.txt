@@ -93,19 +93,18 @@ FINPROCEDURE
 ------------------------------------------------------------------------------------------------
 FONCTION get_total_amount( list_cotise:[0..7] de PARTICIPATION, montant_due_compte:booleen): reel
 VAR:
-    amount,montant_due_compte: reel
+    amount: reel
     i:entier
  DEBUT
-        total_due <-- 0
         amount <-- 0
         Pour i <-- 0 a 7 Faire
             Si (montant_due_compte = VRAI) Alors 
                 amount <-- amount + list_cotise[i].amount_paid
             Sinon
-                amount_due <-- amount_due + list_cotise[i].amount_due
+                amount <-- amount + list_cotise[i].amount_due
             FinSi
         FinPour
-    RETOURNER amount
+    RETOURNER amount 
 FINFONCTION
 -----------------------------------------------------------------------------------------------------
 Algorithme ma_mutuelle
