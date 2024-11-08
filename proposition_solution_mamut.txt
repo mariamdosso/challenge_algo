@@ -109,10 +109,21 @@ FINFONCTION
 *************************************************************************************
 FONCTION verification d'existence( list_member[0..14] de MEMBER, identifi:entier) : Entier
 Var: 
-    pos ,i:entier
+    pos , i:entier
+    check:booleen
 DEBUT
-    pos <-- 0
+
+    pos <-- -15
     i <-- 0
+    TANTQUE (check=FAUX ET i< 15 ) Faire
+        Si ( list_member[i].id = identifi) Alors
+            pos <-- i
+            check <-- VRAI
+        FinSi
+        i <-- i + 1
+    FinTantQue
+        RETOURNER pos
+
 
 FINFONCTION
 -----------------------------------------------------------------------------------------------------
@@ -145,6 +156,7 @@ VAR:
     amount_total : reel
     amount_total_due: reel
     identifiant: entier
+    pos_member: entier
      
 
 DEBUT
@@ -213,11 +225,8 @@ DEBUT
             ECRIRE("veillez svp renseigner l'identifiant du membre")
 	        LIRE(identifiant)
             Pour i <-- 0 a 14 Faire
-                Si (list_member[i].id = identifiant) Alors 
-                    display_member(list_member[i])
-                SiNon
-                    ECRIRE("Desole ce membre n'existe pas")
-                FinSi
+                pos_member <-- verification d'existence( list_member[i].id, identifiant)
+                display_member(list_member[pos_member])
             FinPour
         FinSi
     Jusqu'a  (user_choice >= 1) ET  (user_choice <= 7)
