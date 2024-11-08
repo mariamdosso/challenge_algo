@@ -176,19 +176,20 @@ DEBUT
              FinPour
         FinSi
         Si (user_choice = 5) Alors
+            amount_total <-- 0
+            amount_total_due <-- 0
             Pour i <-- 0 a 14 Faire
-                amount_total <-- 0
-                amount_total_due <-- 0
-                 amount_total <-- amount_total + get_total_amount(list_member[i].cotisation ,reponse)  
+                 amount_total <-- amount_total + get_total_amount(list_member[i].cotisation ,VRAI)  
                  Ecrire(" voici le montant cotisee par rapport au montant total:",amount_total)
-                 amount_total_due <-- amount_total_due + get_total_amount(list_member[i].cotisation,reponse)
-                 Ecrire(" voici le montant due par rapport au montant cotisee:", amount_total_due)
+                 amount_total_due <-- amount_total_due + get_total_amount(list_member[i].cotisation,FAUX)
+                 Ecrire(" le montant cotise est:",amount_total,/ amount_total_due )
             FinPour
         FinSi
         Si (user_choice = 6) Alors
             Pour i <-- 0 a 14 Faire
-                amount_total <-- get_total_amount(list_member[i].cotisation ) * 15
-                Si (amount_total = list_member[i].cotisation.amount_due) Alors
+                amount_total <-- get_total_amount(list_member[i].cotisation,VRAI )
+                amount_total_due <-- amount_total_due + get_total_amount(list_member[i].cotisation,FAUX)
+                Si (amount_total = amount_total_due) Alors
                     ECRIRE(" felicitation la cayotte  est atteint")
                 SiNon 
                     ECRIRE(" desole la cayotte n'est pas  atteint! redoublons d'effort pour une prochaine foie")
