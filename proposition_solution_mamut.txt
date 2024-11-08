@@ -91,14 +91,19 @@ DEBUT
 
 FINPROCEDURE
 ------------------------------------------------------------------------------------------------
-FONCTION get_total_amount( list_cotise:[0..7] de PARTICIPATION): reel
+FONCTION get_total_amount( list_cotise:[0..7] de PARTICIPATION, montant_due_compte:booleen): reel
 VAR:
-    amount: reel
+    amount,montant_due_compte: reel
     i:entier
  DEBUT
+        total_due <-- 0
         amount <-- 0
         Pour i <-- 0 a 7 Faire
-           amount <-- amount + list_cotise[i].amount_paid
+            Si (montant_due_compte = VRAI) Alors 
+                amount <-- amount + list_cotise[i].amount_paid
+            Sinon
+                amount_due <-- amount_due + list_cotise[i].amount_due
+            FinSi
         FinPour
     RETOURNER amount
 FINFONCTION
@@ -129,6 +134,7 @@ VAR:
     i: entier
     reponse: booleen
     amount_total : reel
+    amount_total_due: reel
      
 
 DEBUT
@@ -172,8 +178,12 @@ DEBUT
         FinSi
         Si (user_choice = 5) Alors
             Pour i <-- 0 a 14 Faire
-                 amount_total <-- get_total_amount(list_member[i].cotisation ) * 15
+                amount_total <-- 0
+                amount_total_due <-- 0
+                 amount_total <-- amount_total + get_total_amount(list_member[i].cotisation ,reponse)  
                  Ecrire(" voici le montant cotisee par rapport au montant total:",amount_total)
+                 amount_total_due <-- amount_total_due + get_total_amount(list_member[i].cotisation,reponse)
+                 Ecrire(" voici le montant due par rapport au montant cotisee:", amount_total_due)
             FinPour
         FinSi
         Si (user_choice = 6) Alors
