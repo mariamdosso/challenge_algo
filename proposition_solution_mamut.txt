@@ -186,15 +186,17 @@ DEBUT
             FinPour
         FinSi
         Si (user_choice = 6) Alors
+            amount_total <-- 0
+            amount_total_due <-- 0
             Pour i <-- 0 a 14 Faire
-                amount_total <-- get_total_amount(list_member[i].cotisation,VRAI )
+                amount_total <-- amount_total + get_total_amount(list_member[i].cotisation,VRAI )
                 amount_total_due <-- amount_total_due + get_total_amount(list_member[i].cotisation,FAUX)
-                Si (amount_total = amount_total_due) Alors
-                    ECRIRE(" felicitation la cayotte  est atteint")
-                SiNon 
-                    ECRIRE(" desole la cayotte n'est pas  atteint! redoublons d'effort pour une prochaine foie")
-                FinSi
             FinPour
+            Si (amount_total >= amount_total_due) Alors
+                    ECRIRE(" felicitation la cayotte  est atteint")
+             SiNon 
+                    ECRIRE(" desole la cayotte n'est pas  atteint! redoublons d'effort pour une prochaine foie")
+            FinSi
          FinSi 
  	   
     Jusqu'a  (user_choice >= 1) ET  (user_choice <= 7)
