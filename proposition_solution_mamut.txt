@@ -221,7 +221,7 @@ DEBUT
                     ECRIRE(" desole la cayotte n'est pas  atteint! redoublons d'effort pour une prochaine foie")
             FinSi
         FinSi 
-        Si (user_choice = 6) Alors
+        Si (user_choice = 7) Alors
             ECRIRE("veillez svp renseigner l'identifiant du membre")
 	        LIRE(identifiant)
             Pour i <-- 0 a 14 Faire
