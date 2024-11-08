@@ -182,7 +182,7 @@ DEBUT
                  amount_total <-- amount_total + get_total_amount(list_member[i].cotisation ,VRAI)  
                  Ecrire(" voici le montant cotisee par rapport au montant total:",amount_total)
                  amount_total_due <-- amount_total_due + get_total_amount(list_member[i].cotisation,FAUX)
-                 Ecrire(" le montant cotise est:",amount_total,/ amount_total_due )
+                 Ecrire(" le montant cotise est:",amount_total,"/ ",amount_total_due )
             FinPour
         FinSi
         Si (user_choice = 6) Alors
