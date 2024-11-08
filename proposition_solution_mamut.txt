@@ -126,7 +126,7 @@ Algorithme ma_mutuelle
     FONCTION new_member(): MEMBER
     FONCTION check_member_update(cotise:[0..7] de PARTICIPATION): booleen
     PROCEDURE display_member(memb:MEMBER)
-    FONCTION get_total_amount( list_cotise:[0..7] de reel): reel
+    FONCTION get_total_amount( list_cotise:[0..7] de PARTICIPATION,montant_due_compte:booleen): reel
 VAR:
     user_choice:entier
     list_member:[0..14] de MEMBER
